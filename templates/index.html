@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block body %}
+  
+<div class="container my-3 col-9">
+  <h2>Add your ToDo</h2>
+  <form action="/" method="POST">
+    <div class="mb-3">
+          <label for="title" class="form-label">ToDo Title</label>
+          <input
+          type="text"
+          class="form-control"
+          name="title"
+          id="title"
+          aria-describedby="emailHelp"
+          autocomplete
+          />
+        </div>
+        <div class="mb-3">
+          <label for="desc" class="form-label">ToDo Description</label>
+          <input
+          type="text"
+          class="form-control"
+          name="desc"
+          id="desc"
+          autocomplete
+          />
+        </div>
+        
+        <button type="submit" class="btn btn-outline-dark">Submit</button>
+      </form>
+    </div>
+    <div class="container my-3 col-9">
+      <h2>Your ToDo</h2>
+      {% if alltodo|length ==0 %}
+      <h2 class="alert alert-dark">No Records</h2>
+      {% else %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sno</th>
+            <th scope="col">Todo</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date_created</th>
+            <th scope="col">Operation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for todo in alltodo %}
+          
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <!-- using loop.index to print serial number that remains continuous even if some element is deleted from it -->
+            <td>{{todo.title}}</td>
+            <td>{{todo.desc}}</td>
+            <td>{{todo.date_created}}</td>
+            <td>
+              <div class="d-flex">
+                <a
+                href="/delete/{{todo.Sno}}"
+                class="btn btn-outline-dark mx-1 btn-sm my-1"
+                onclick="goToServerandback()"
+                >Delete</a
+                >
+                <a
+                href="/update/{{todo.Sno}}"
+                class="btn btn-outline-dark mx-1 btn-sm my-1"
+                onclick="goToServerandback()"
+                >Update</a
+                >
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+      {% endif %}
+    </div>
+    
+    {% endblock body %}
