@@ -1,0 +1,1 @@
+1. have to add finding todo by name functionality by using search bar
